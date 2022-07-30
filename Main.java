@@ -1,109 +1,156 @@
 package com;
-import java.util.ArrayList;
-import java.util.Collections;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-	 public static void main(String[] args) {
-	        /*System.out.println("Hello World!");*/
-	        System.out.println("\n**************************************\n");
-	        System.out.println("\tWelcome to TheDesk \n");
-	        System.out.println("**************************************");
-	        optionsSelection();
+	void welcome() throws IOException {
+		 System.out.println("WELCOME!");
+		 System.out.println("Prototype for Virtual key repository");
+		 display();
+	 }
+	 void display() throws IOException {
+		 while(true) {
+		 System.out.println("\nChoose the operation from the options!");
+		 System.out.println("1. Sort file names");
+		 System.out.println("2. Operations");
+		 System.out.println("3. Exit");
+		 Scanner sc = new Scanner(System.in);
+		 try {
+		 int a = sc.nextInt();
+		 if(a==1 || a==2 || a==3) {
+		 switch (a) {
+		 case 1:{
+			 sortfunc();
+			 //display();
+			 break;
+		 }
+		 case 2:{
+			 display1();
+			 break;
+		 }
+		 case 3:{
+			 System.out.println("Exitting program");
+			 System.exit(0);
+		 }
+		 }
+		 }
+		 else {
+			 System.out.println("Please enter 1 or 2 or 3!");
+			 display();
+		 }
+	 }catch(Exception e){
+	 }
+	 }
+	 }
 
-	    }
-	    private static void optionsSelection() {
-	        String[] arr = {"1. I wish to review my expenditure",
-	                "2. I wish to add my expenditure",
-	                "3. I wish to delete my expenditure",
-	                "4. I wish to sort the expenditures",
-	                "5. I wish to search for a particular expenditure",
-	                "6. Close the application"
-	        };
-	        int[] arr1 = {1,2,3,4,5,6};
-	        int  slen = arr1.length;
-	        for(int i=0; i<slen;i++){
-	            System.out.println(arr[i]);
-	            // display the all the Strings mentioned in the String array
-	        }
-	        ArrayList<Integer> arrlist = new ArrayList<Integer>();
-	        ArrayList<Integer> expenses = new ArrayList<Integer>();
-	        expenses.add(1000);
-	        expenses.add(2300);
-	        expenses.add(45000);
-	        expenses.add(32000);
-	        expenses.add(110);
-	        expenses.addAll(arrlist);
-	        System.out.println("\nEnter your choice:\t");
-	        Scanner sc = new Scanner(System.in);
-	        int  options =  sc.nextInt();
-	        for(int j=1;j<=slen;j++){
-	            if(options==j){
-	                switch (options){
-	                    case 1:
-	                        System.out.println("Your saved expenses are listed below: \n");
-	                        System.out.println(expenses+"\n");
-	                        optionsSelection();
-	                        break;
-	                    case 2:
-	                        System.out.println("Enter the value to add your Expense: \n");
-	                        int value = sc.nextInt();
-	                        expenses.add(value);
-	                        System.out.println("Your value is updated\n");
-	                        expenses.addAll(arrlist);
-	                        System.out.println(expenses+"\n");
-	                        optionsSelection();
+	void display1() throws IOException {
+		while(true) {
+		 System.out.println("\nChoose the operation from the options!");
+		 System.out.println("1. Add a file");
+		 System.out.println("2. Delete a file");
+		 System.out.println("3. Search a file");
+		 System.out.println("4. Back to Main");
+		 Scanner sc = new Scanner(System.in);
+		 try {
+		 int b = sc.nextInt();
+		 if(b==1||b==2||b==3||b==4) {
+		 switch (b) {
+		 case 1: {
+			createfunc();
+			display1();
+			break;
+			 
+		 }
+		 case 2:{
+			 deletefunc();
+			 break;
+		 }
+		 case 3: {
+			 searchfunc();
+			 break;
+		 }
+		 case 4:{
+			 display();
+			 break;
+		 }
+		 }
+		 }
+		 else {
+			 System.out.println("Please enter 1, 2, 3 or 4!");
+		 }
+	 }catch(Exception e){
+	 }
+		}
+	}
+	void sortfunc() {
 
-	                        break;
-	                    case 3:
-	                        System.out.println("You are about the delete all your expenses! \nConfirm again by selecting the same option...\n");
-	                        int con_choice = sc.nextInt();
-	                        if(con_choice==options){
-	                               expenses.clear();
-	                            System.out.println(expenses+"\n");
-	                            System.out.println("All your expenses are erased!\n");
-	                        } else {
-	                            System.out.println("Oops... try again!");
-	                        }
-	                        optionsSelection();
-	                        break;
-	                    case 4:
-	                        sortExpenses(expenses);
-	                        optionsSelection();
-	                        break;
-	                    case 5:
-	                        searchExpenses(expenses);
-	                        optionsSelection();
-	                        break;
-	                    case 6:
-	                        closeApp();
-	                        break;
-	                    default:
-	                        System.out.println("You have made an invalid choice!");
-	                        break;
-	                }
-	            }
-	        }
+		File f = new File("C:\\Users\\suren\\Downloads\\Project");
+		String listOfFiles[]=f.list();
+		 System.out.println("Sorted order of files");
+		 Arrays.sort(listOfFiles);
+		 for(String files:listOfFiles) {
+			 System.out.println(""+files);
+		 }
+		}
+		
+	 void searchfunc() throws IOException {
+		 File ff=new File("C:\\Users\\suren\\Downloads\\Project\\abc.txt");
+			File ff1=new File("C:\\Users\\suren\\Downloads\\Project");
+			File ff2=new File("C:\\Users\\suren\\Downloads\\Project\\demo.txt");
+			ff.createNewFile();
+			ff2.createNewFile();
 
-	    }
-	    private static void closeApp() {
-	        System.out.println("Closing your application... \nThank you!");
-	            }
-	    private static void searchExpenses(ArrayList<Integer> arrayList) {
-	        int leng = arrayList.size();
-	        System.out.println("Enter the expense you need to search:\t");
-	        Scanner sc=new Scanner(System.in);
-	        int n = sc.nextInt();
-	        if(arrayList.contains(n)) {
-	        	System.out.println("Found the element at"+arrayList.indexOf(n));
-	        }else {
-	        	System.out.println("Element not found");
-	        }
-	    }
-	    private static void sortExpenses(ArrayList<Integer> arrayList) {
-	        int arrlength =  arrayList.size();
-	       Collections.sort(arrayList);
-	       System.out.println(arrayList);
-	    }
+		 Scanner sc1=new Scanner (System.in);
+			System.out.println("Enter the file name you want to search");
+			String s1=sc1.next();
+			File file1=new File("C:\\Users\\suren\\Downloads\\Project\\"+s1+".txt");
+			String listOfFiles1[] =ff1.list();
+			 if (listOfFiles1 == null) {
+		            System.out.println("File does not exists.");
+		        }else {
+		                System.out.println(" File exists");
+		        }
+		            }
+	 void deletefunc() {
+		 Scanner sc=new Scanner (System.in);
+			System.out.println("Enter the file name you want to delete");
+			String s=sc.next();
+			File file=new File("C:\\Users\\suren\\Downloads\\Project\\"+s+".txt");
+			if(file.delete()) {
+				System.out.println("File deleted successfully");
+			}else {
+				System.out.println("File not found");
+			}
+			
+	}
+	void createfunc() throws IOException {
+		File ff=new File("C:\\Users\\suren\\Downloads\\Project\\abc.txt");
+		File ff1=new File("C:\\Users\\suren\\Downloads\\Project");
+		File ff2=new File("C:\\Users\\suren\\Downloads\\Project\\demo.txt");
+		ff.createNewFile();
+		ff2.createNewFile();
+
+		 Scanner sc = new Scanner(System.in);
+		 System.out.println("Enter filename to add: ");
+		 String str = sc.nextLine();
+		 
+		 File file = new File("C:\\Users\\suren\\Downloads\\Project"+str+".txt");
+		  
+	     //Create the file
+	     if (file.createNewFile()){
+	       System.out.println("File is created!");
+	     }else{
+	       System.out.println("File already exists.");
+	     }
 	}
 
+	public static void main(String[] args)throws IOException {
+		
+		Main m = new Main();
+		 m.welcome();
+	}
+
+}
