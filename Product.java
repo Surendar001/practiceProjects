@@ -9,6 +9,7 @@ public class Product {
 private int pid;
 private String pname;
 private float price;
+private String url;
 public int getPid() {
 	return pid;
 }
@@ -27,11 +28,16 @@ public float getPrice() {
 public void setPrice(float price) {
 	this.price = price;
 }
+public String getUrl() {
+	return url;
+}
+public void setUrl(String url) {
+	this.url = url;
+}
 @Override
 public String toString() {
-	return "Product [pid=" + pid + ", pname=" + pname + ", price=" + price + "]";
+	String myUrl="<img src="+url+"width=1500 height=150/>";
+	return "Product [pid=" + pid + ", pname=" + pname + ", price=" + price + ", url=" + myUrl + "]";
 }
-
-
 
 }
